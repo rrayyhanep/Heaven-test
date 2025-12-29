@@ -233,7 +233,7 @@ export default function RoomsPage() {
 
       <RoomPopup
         room={currentRoom}
-        slug={selectedRoom}
+        slug={selectedRoom || undefined}
         isOpen={selectedRoom !== null}
         onClose={handleClosePopup}
       />

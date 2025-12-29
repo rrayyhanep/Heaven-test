@@ -52,9 +52,9 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold mb-4 uppercase tracking-wide">Contact</h3>
             <ul className="space-y-2 text-heaven-blue-light text-sm">
-              <li>Email: info@heavenfurniture.com</li>
-              <li>Phone: +1 (555) 123-4567</li>
-              <li>Address: 123 Design Street</li>
+              <li>Email: heavenfurniture000@gmail.com</li>
+              <li>Phone: 9074 834993</li>
+              <li>Address: Maruthur, Pattambi<br />Palakkad, Kerala<br />India</li>
             </ul>
           </div>
         </div>
@@ -66,4 +66,3 @@ export default function Footer() {
     </footer>
   )
 }
-

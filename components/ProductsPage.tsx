@@ -3,9 +3,36 @@
 import { useState, useMemo } from 'react'
 import ProductCard from './ProductCard'
 import ScrollAnimation from './ScrollAnimation'
-import { products } from '@/data/products'
+import { Product } from '@/data/products'
 
-export default function ProductsPage() {
+// Helper function to filter by category
+const filterByCategory = (products: Product[], category: string | null) => {
+  if (!category || category === 'All') return products
+  return products.filter((p) => p.category === category)
+}
+
+// Helper function to filter by type
+const filterByType = (products: Product[], type: string | null) => {
+  if (!type || type === 'All') return products
+  return products.filter((p) => p.type === type)
+}
+
+// Helper function to filter by search query
+const filterBySearchQuery = (products: Product[], query: string) => {
+  if (!query.trim()) return products
+  const lowerCaseQuery = query.toLowerCase().trim()
+  return products.filter(
+    (p) =>
+      p.name.toLowerCase().includes(lowerCaseQuery) ||
+      p.description.toLowerCase().includes(lowerCaseQuery) ||
+      p.category.toLowerCase().includes(lowerCaseQuery) ||
+      (p.type && p.type.toLowerCase().includes(lowerCaseQuery)) ||
+      (p.materialOptions && p.materialOptions.some(m => m.toLowerCase().includes(lowerCaseQuery))) ||
+      (p.colorOptions && p.colorOptions.some(c => c.toLowerCase().includes(lowerCaseQuery)))
+  )
+}
+
+export default function ProductsPage({ products }: { products: Product[] }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedType, setSelectedType] = useState<string | null>(null)
@@ -14,47 +41,22 @@ export default function ProductsPage() {
   const categories = useMemo(() => {
     const cats = Array.from(new Set(products.map((p) => p.category)))
     return ['All', ...cats]
-  }, [])
+  }, [products])
 
   // Get unique types
   const types = useMemo(() => {
-    const typeSet = new Set<string>()
-    products.forEach((p) => {
-      if (p.type) typeSet.add(p.type)
-    })
+    const typeSet = new Set(products.map(p => p.type).filter(Boolean as any))
     return ['All', ...Array.from(typeSet).sort()]
-  }, [])
+  }, [products])
 
   // Filter products based on search, category, and type
   const filteredProducts = useMemo(() => {
     let filtered = products
-
-    // Filter by category
-    if (selectedCategory && selectedCategory !== 'All') {
-      filtered = filtered.filter((p) => p.category === selectedCategory)
-    }
-
-    // Filter by type
-    if (selectedType && selectedType !== 'All') {
-      filtered = filtered.filter((p) => p.type === selectedType)
-    }
-
-    // Filter by search query
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase().trim()
-      filtered = filtered.filter(
-        (p) =>
-          p.name.toLowerCase().includes(query) ||
-          p.description.toLowerCase().includes(query) ||
-          p.category.toLowerCase().includes(query) ||
-          (p.type && p.type.toLowerCase().includes(query)) ||
-          (p.material && p.material.toLowerCase().includes(query)) ||
-          (p.color && p.color.toLowerCase().includes(query))
-      )
-    }
-
+    filtered = filterByCategory(filtered, selectedCategory)
+    filtered = filterByType(filtered, selectedType)
+    filtered = filterBySearchQuery(filtered, searchQuery)
     return filtered
-  }, [searchQuery, selectedCategory, selectedType])
+  }, [searchQuery, selectedCategory, selectedType, products])
 
   return (
     <div className="pt-20 pb-20 bg-gradient-to-b from-white to-heaven-blue-light/10 min-h-screen">
@@ -238,4 +240,3 @@ export default function ProductsPage() {
     </div>
   )
 }
-

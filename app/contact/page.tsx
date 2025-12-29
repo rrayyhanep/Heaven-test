@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { contactInfo } from '@/data/config'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -8,13 +9,34 @@ export default function ContactPage() {
     email: '',
     message: '',
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log('Form submitted:', formData)
-    alert('Thank you for your message! We will get back to you soon.')
-    setFormData({ name: '', email: '', message: '' })
+    setIsSubmitting(true)
+    setSubmitStatus(null)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', message: '' })
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -32,7 +54,7 @@ export default function ContactPage() {
             Get in Touch
           </h1>
           <p className="text-lg text-heaven-teal-light max-w-2xl mx-auto">
-            Have a question or want to learn more about our furniture? We'd love to hear from you.
+            Have a question or want to learn more about our furniture? We&apos;d love to hear from you.
           </p>
         </div>
 
@@ -51,7 +73,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-heaven-teal-dark mb-1">Email</h3>
-                  <p className="text-heaven-teal-light">info@heavenfurniture.com</p>
+                  <p className="text-heaven-teal-light">{contactInfo.email}</p>
                 </div>
               </div>
 
@@ -63,7 +85,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-heaven-teal-dark mb-1">Phone</h3>
-                  <p className="text-heaven-teal-light">+1 (555) 123-4567</p>
+                  <p className="text-heaven-teal-light">{contactInfo.phone}</p>
                 </div>
               </div>
 
@@ -76,7 +98,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-heaven-teal-dark mb-1">Address</h3>
-                  <p className="text-heaven-teal-light">123 Design Street<br />Furniture City, FC 12345</p>
+                  <p className="text-heaven-teal-light" dangerouslySetInnerHTML={{ __html: contactInfo.address }} />
                 </div>
               </div>
             </div>
@@ -132,10 +154,17 @@ export default function ContactPage() {
               </div>
               <button
                 type="submit"
-                className="w-full py-3 bg-heaven-teal-dark text-white rounded-lg hover:bg-heaven-teal transition-colors font-semibold text-lg"
+                disabled={isSubmitting}
+                className="w-full py-3 bg-heaven-teal-dark text-white rounded-lg hover:bg-heaven-teal transition-colors font-semibold text-lg disabled:bg-gray-400"
               >
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
+              {submitStatus === 'success' && (
+                <p className="text-green-600">Your message has been sent successfully!</p>
+              )}
+              {submitStatus === 'error' && (
+                <p className="text-red-600">An error occurred while sending your message. Please try again.</p>
+              )}
             </form>
           </div>
         </div>
@@ -143,4 +172,3 @@ export default function ContactPage() {
     </div>
   )
 }
-

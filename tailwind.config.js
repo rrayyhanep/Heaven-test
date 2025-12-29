@@ -17,9 +17,13 @@ module.exports = {
           light: '#7dd3f0',
           DEFAULT: '#5bb8d4',
         },
+        'warm-gray': {
+          '100': '#f7f5f2', // A very light, warm gray for backgrounds
+          '500': '#a8a29e', // A medium warm gray for borders/secondary text
+          '800': '#44403c', // A dark warm gray for alternative text
+        },
       },
     },
   },
   plugins: [],
 }
-

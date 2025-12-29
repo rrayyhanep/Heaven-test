@@ -9,19 +9,16 @@ export default function FeaturedSection() {
       title: 'Premium Quality',
       description: 'Crafted with the finest materials and attention to detail',
       icon: '✨',
-      gradient: 'from-heaven-blue-light/20 to-heaven-teal-light/20',
     },
     {
       title: 'Modern Design',
       description: 'Contemporary styles that complement any interior',
       icon: '🎨',
-      gradient: 'from-heaven-teal-light/20 to-heaven-blue-light/20',
     },
     {
       title: 'Comfort First',
       description: 'Designed for ultimate comfort and relaxation',
       icon: '🛋️',
-      gradient: 'from-heaven-blue-light/20 to-heaven-teal/20',
     },
   ]
 
@@ -57,7 +54,7 @@ export default function FeaturedSection() {
                 displayOverlayContent={false}
                 className="w-full max-w-sm"
               >
-                <div className={`w-full h-full text-center p-8 rounded-lg bg-gradient-to-br ${feature.gradient} border border-heaven-blue-light/20 shadow-md flex flex-col items-center justify-center`}>
+                <div className={`w-full h-full text-center p-8 rounded-lg border border-heaven-blue-light/20 shadow-md flex flex-col items-center justify-center bg-heaven-blue-light/10`}>
                   <div className="text-6xl mb-6">{feature.icon}</div>
                   <h3 className="text-2xl font-semibold text-heaven-teal-dark mb-4">
                     {feature.title}
@@ -74,4 +71,3 @@ export default function FeaturedSection() {
     </section>
   )
 }
-

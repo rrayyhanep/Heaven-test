@@ -11,12 +11,12 @@ export default function Logo({ size = 60, className = '' }: LogoProps) {
       <Image
         src="/images/logo.png"
         alt="Heaven Furniture Logo"
-        width={size}
-        height={size}
+        fill
+        sizes={`${size}px`}
         className="object-contain"
         priority
+        unoptimized
       />
     </div>
   )
 }
-

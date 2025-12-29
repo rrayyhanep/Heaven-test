@@ -3,33 +3,7 @@
 import ScrollAnimation from '@/components/ScrollAnimation'
 import ProductCard from '@/components/ProductCard'
 import { products } from '@/data/products'
-
-const roomData: Record<string, {
-  name: string
-  description: string
-  productIds: number[]
-}> = {
-  'living-room': {
-    name: 'Living Room',
-    description: 'Create a cozy and inviting living space with our carefully curated collection of sofas, coffee tables, and accent pieces.',
-    productIds: [1, 3, 6],
-  },
-  'dining-room': {
-    name: 'Dining Room',
-    description: 'Elegant dining experiences for every occasion. From intimate dinners to grand celebrations.',
-    productIds: [2, 7, 8],
-  },
-  'bedroom': {
-    name: 'Bedroom',
-    description: 'Transform your bedroom into a peaceful retreat with our luxurious bed frames and storage solutions.',
-    productIds: [4, 9, 10],
-  },
-  'office': {
-    name: 'Office',
-    description: 'Productive workspaces that inspire creativity. Functional and stylish office furniture solutions.',
-    productIds: [5, 11, 12],
-  },
-}
+import { roomData } from '@/data/rooms'
 
 interface PageProps {
   params: { slug: string }
@@ -41,9 +15,9 @@ export default function RoomPage({ params }: PageProps) {
 
   if (!room) {
     return (
-      <div className="pt-20 pb-20 text-center">
+      <div className="pt-20 pb-20 text-center bg-warm-gray-100">
         <h1 className="text-4xl font-bold text-heaven-teal-dark mb-4">Room Not Found</h1>
-        <p className="text-heaven-teal-light">The room you're looking for doesn't exist.</p>
+        <p className="text-warm-gray-500">The room you&apos;re looking for doesn&apos;t exist.</p>
       </div>
     )
   }
@@ -54,14 +28,14 @@ export default function RoomPage({ params }: PageProps) {
     .filter((p): p is typeof products[0] => p !== undefined)
 
   return (
-    <div className="pt-20 pb-20">
+    <div className="pt-20 pb-20 bg-warm-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollAnimation animationType="fade-in-up">
           <div className="text-center mb-16">
             <h1 className="text-5xl font-bold text-heaven-teal-dark mb-6">
               {room.name}
             </h1>
-            <p className="text-lg text-heaven-teal-light max-w-3xl mx-auto">
+            <p className="text-lg text-warm-gray-800 max-w-3xl mx-auto">
               {room.description}
             </p>
           </div>
