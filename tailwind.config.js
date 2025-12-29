@@ -1,0 +1,25 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        'heaven-teal': {
+          dark: '#1a4d4d',
+          DEFAULT: '#2d6a6a',
+          light: '#3d8a8a',
+        },
+        'heaven-blue': {
+          light: '#7dd3f0',
+          DEFAULT: '#5bb8d4',
+        },
+      },
+    },
+  },
+  plugins: [],
+}
+
