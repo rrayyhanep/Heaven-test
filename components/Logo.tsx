@@ -7,7 +7,7 @@ interface LogoProps {
 
 export default function Logo({ size = 60, className = '' }: LogoProps) {
   return (
-    <div className={`relative ${className}`} style={{ width: size, height: size }}>
+    <div className={`relative ${className}`}>
       <Image
         src="/images/logo.png"
         alt="Heaven Furniture Logo"

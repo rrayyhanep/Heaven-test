@@ -1,100 +1,108 @@
-'use client'
 
-import Link from 'next/link'
+'use client'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Logo from './Logo'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
-  const [scrolled, setScrolled] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+
+  // Prevent scrolling when the mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isOpen]);
+
+  const handleScroll = () => {
+    if (window.scrollY > lastScrollY) {
+      setVisible(false);
+    } else {
+      setVisible(true);
+    }
+    setLastScrollY(window.scrollY);
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
-      setPrevScrollPos(currentScrollPos);
-      setScrolled(currentScrollPos > 10);
-    };
-
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [prevScrollPos, visible]);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollY]);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen)
+  }
+
+  const closeMenu = () => {
+    setIsOpen(false)
+  }
 
   return (
-    <nav className={`sticky top-0 z-50 transition-all duration-300 ${visible ? 'translate-y-0' : '-translate-y-full'} ${scrolled ? 'bg-white shadow-md' : 'bg-warm-gray-100/80 backdrop-blur-lg'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
-            <Logo size={60} className="flex-shrink-0" />
-            <div className="flex flex-col">
-              <span className="text-xl font-bold text-heaven-teal-dark uppercase tracking-tight">
-                Heaven
-              </span>
-              <span className="text-sm text-heaven-teal-dark uppercase tracking-wider">
-                Furniture
-              </span>
+    <>
+      <header className={`fixed top-0 left-0 right-0 z-50 bg-white shadow-md transition-transform duration-150 ${visible ? 'translate-y-0' : '-translate-y-full'}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-12 md:h-16">
+            <div className="flex-shrink-0">
+              <Link href="/" className="text-xl font-bold text-heaven-teal-dark">
+                <Logo className="h-8 w-20 md:h-10 md:w-24" />
+              </Link>
             </div>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-heaven-teal-dark hover:text-heaven-teal transition-colors font-medium">
-              Home
-            </Link>
-            <Link href="/products" className="text-heaven-teal-dark hover:text-heaven-teal transition-colors font-medium">
-              Products
-            </Link>
-            <Link href="/rooms" className="text-heaven-teal-dark hover:text-heaven-teal transition-colors font-medium">
-              Rooms
-            </Link>
-            <Link href="/about" className="text-heaven-teal-dark hover:text-heaven-teal transition-colors font-medium">
-              About
-            </Link>
-            <Link href="/contact" className="text-heaven-teal-dark hover:text-heaven-teal transition-colors font-medium">
-              Contact
-            </Link>
+            {/* Desktop Navigation */}
+            <nav className="hidden md:block">
+              <div className="ml-10 flex items-baseline divide-x divide-gray-300">
+                <Link href="/" className="px-4 font-medium text-gray-700 hover:text-heaven-blue transition-colors">Home</Link>
+                <Link href="/products" className="px-4 font-medium text-gray-700 hover:text-heaven-blue transition-colors">Products</Link>
+                <Link href="/rooms" className="px-4 font-medium text-gray-700 hover:text-heaven-blue transition-colors">Rooms</Link>
+                <Link href="/about" className="px-4 font-medium text-gray-700 hover:text-heaven-blue transition-colors">About</Link>
+                <Link href="/contact" className="px-4 font-medium text-gray-700 hover:text-heaven-blue transition-colors">Contact</Link>
+              </div>
+            </nav>
+            {/* Mobile Menu Button */}
+            <div className="md:hidden flex items-center">
+              <button
+                onClick={toggleMenu}
+                type="button"
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-heaven-blue focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                aria-controls="mobile-menu"
+                aria-expanded="false"
+              >
+                <span className="sr-only">Open main menu</span>
+                {isOpen ? (
+                  <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                ) : (
+                  <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                )}
+              </button>
+            </div>
           </div>
-
-          {/* Mobile menu button */}
-          <button
-            className="md:hidden text-heaven-teal-dark"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {isOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
         </div>
+      </header>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden pb-4 space-y-2">
-            <Link href="/" className="block py-2 text-heaven-teal-dark hover:text-heaven-teal transition-colors">
-              Home
-            </Link>
-            <Link href="/products" className="block py-2 text-heaven-teal-dark hover:text-heaven-teal transition-colors">
-              Products
-            </Link>
-            <Link href="/rooms" className="block py-2 text-heaven-teal-dark hover:text-heaven-teal transition-colors">
-              Rooms
-            </Link>
-            <Link href="/about" className="block py-2 text-heaven-teal-dark hover:text-heaven-teal transition-colors">
-              About
-            </Link>
-            <Link href="/contact" className="block py-2 text-heaven-teal-dark hover:text-heaven-teal transition-colors">
-              Contact
-            </Link>
+      {/* Mobile Navigation Overlay */}
+      <div
+        className={`md:hidden fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        onClick={closeMenu}
+      />
+
+      <div className={`fixed top-12 right-0 h-auto pb-8 w-2/5 sm:w-1/4 z-50 md:hidden bg-white transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+          <div className="pt-2 px-8">
+            <div className="flex flex-col divide-y divide-gray-300 text-center">
+                <Link href="/" className="py-4 text-xl font-light text-gray-800 hover:text-heaven-blue transition-colors" onClick={closeMenu}>Home</Link>
+                <Link href="/products" className="py-4 text-xl font-light text-gray-800 hover:text-heaven-blue transition-colors" onClick={closeMenu}>Products</Link>
+                <Link href="/rooms" className="py-4 text-xl font-light text-gray-800 hover:text-heaven-blue transition-colors" onClick={closeMenu}>Rooms</Link>
+                <Link href="/about" className="py-4 text-xl font-light text-gray-800 hover:text-heaven-blue transition-colors" onClick={closeMenu}>About</Link>
+                <Link href="/contact" className="py-4 text-xl font-light text-gray-800 hover:text-heaven-blue transition-colors" onClick={closeMenu}>Contact</Link>
+            </div>
           </div>
-        )}
       </div>
-    </nav>
+    </>
   )
 }

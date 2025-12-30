@@ -23,13 +23,13 @@ export default function ProductShowcase() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollAnimation animationType="fade-in-up">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-heaven-teal-dark mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-heaven-teal-dark mb-4">
               Featured Products
             </h2>
-            <p className="text-lg text-heaven-teal-light max-w-2xl mx-auto mb-2 font-semibold">
+            <p className="text-md sm:text-lg text-heaven-teal-light max-w-2xl mx-auto mb-2 font-semibold">
               Best Sellers
             </p>
-            <p className="text-base text-heaven-teal-light max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-heaven-teal-light max-w-2xl mx-auto">
               Explore our most popular premium furniture pieces
             </p>
           </div>
@@ -42,7 +42,7 @@ export default function ProductShowcase() {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full font-medium transition-colors ${
+                className={`px-6 py-2 rounded-full font-medium transition-colors text-sm sm:text-base ${
                   selectedCategory === category
                     ? 'bg-heaven-teal-dark text-white'
                     : 'bg-white text-heaven-teal-dark border-2 border-heaven-teal hover:bg-heaven-teal-light hover:text-white'

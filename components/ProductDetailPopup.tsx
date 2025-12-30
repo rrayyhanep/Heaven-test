@@ -86,13 +86,13 @@ export default function ProductDetailPopup({ product, isOpen, onClose }: Product
                   {/* Material Selector */}
                   {product.materialOptions && product.materialOptions.length > 0 && (
                     <div>
-                      <label className="block text-sm font-medium text-heaven-teal-dark mb-2">Material</label>
+                      <label className="block text-xs sm:text-sm font-medium text-heaven-teal-dark mb-2">Material</label>
                       <div className="flex items-center bg-gray-200 rounded-full p-1">
                         {product.materialOptions.map((option) => (
                           <button
                             key={option}
                             onClick={(e) => { e.stopPropagation(); setSelectedMaterial(option); }}
-                            className={`relative px-4 py-1 text-sm font-medium rounded-full transition-colors w-full ${
+                            className={`relative px-3 sm:px-4 py-1 text-xs sm:text-sm font-medium rounded-full transition-colors w-full ${
                               selectedMaterial === option
                                 ? 'text-heaven-teal-dark'
                                 : 'text-gray-500 hover:bg-gray-100/50'
@@ -116,13 +116,13 @@ export default function ProductDetailPopup({ product, isOpen, onClose }: Product
                   {/* Color Selector */}
                   {product.colorOptions && product.colorOptions.length > 0 && (
                     <div>
-                      <label className="block text-sm font-medium text-heaven-teal-dark mb-2">Color</label>
+                      <label className="block text-xs sm:text-sm font-medium text-heaven-teal-dark mb-2">Color</label>
                       <div className="flex items-center bg-gray-200 rounded-full p-1">
                         {product.colorOptions.map((option) => (
                           <button
                             key={option}
                             onClick={(e) => { e.stopPropagation(); setSelectedColor(option); }}
-                            className={`relative px-4 py-1 text-sm font-medium rounded-full transition-colors w-full ${
+                            className={`relative px-3 sm:px-4 py-1 text-xs sm:text-sm font-medium rounded-full transition-colors w-full ${
                               selectedColor === option
                                 ? 'text-heaven-teal-dark'
                                 : 'text-gray-500 hover:bg-gray-100/50'
@@ -145,7 +145,7 @@ export default function ProductDetailPopup({ product, isOpen, onClose }: Product
                 </div>
               </div>
 
-              <div className="p-8 overflow-y-auto max-h-[90vh]">
+              <div className="p-6 sm:p-8 overflow-y-auto max-h-[90vh]">
                 <div className="mb-4">
                   <span className="px-3 py-1 bg-heaven-teal-dark text-white text-xs font-semibold rounded-full">
                     {product.category}
@@ -157,15 +157,15 @@ export default function ProductDetailPopup({ product, isOpen, onClose }: Product
                   )}
                 </div>
 
-                <h2 className="text-3xl font-bold text-heaven-teal-dark mb-4">
+                <h2 className="text-2xl sm:text-3xl font-bold text-heaven-teal-dark mb-4">
                   {product.name}
                 </h2>
 
-                <p className="text-heaven-teal-light mb-6 leading-relaxed">
+                <p className="text-sm sm:text-base text-heaven-teal-light mb-6 leading-relaxed">
                   {product.description}
                 </p>
 
-                <div className="space-y-4 mb-6">
+                <div className="space-y-4 mb-6 text-sm sm:text-base">
                   <div className="flex items-start">
                     <span className="font-semibold text-heaven-teal-dark w-24 flex-shrink-0">Material:</span>
                     <span className="text-heaven-teal-light">{selectedMaterial}</span>
@@ -184,8 +184,8 @@ export default function ProductDetailPopup({ product, isOpen, onClose }: Product
 
                 {product.features && product.features.length > 0 && (
                   <div className="mb-6">
-                    <h3 className="font-semibold text-heaven-teal-dark mb-3">Features:</h3>
-                    <ul className="space-y-2">
+                    <h3 className="font-semibold text-heaven-teal-dark mb-3 text-base sm:text-lg">Features:</h3>
+                    <ul className="space-y-2 text-sm sm:text-base">
                       {product.features.map((feature, index) => (
                         <li key={index} className="flex items-start text-heaven-teal-light">
                           <span className="mr-2 text-heaven-teal-dark">✓</span>
@@ -199,7 +199,7 @@ export default function ProductDetailPopup({ product, isOpen, onClose }: Product
                 <div className="pt-4 border-t border-heaven-teal-light/20">
                   <button 
                     onClick={openContactPopup} 
-                    className="w-full py-3 bg-heaven-teal-dark text-white rounded-lg hover:bg-heaven-teal transition-colors font-semibold"
+                    className="w-full py-3 bg-heaven-teal-dark text-white rounded-lg hover:bg-heaven-teal transition-colors font-semibold text-base sm:text-lg"
                   >
                     Consult Us
                   </button>

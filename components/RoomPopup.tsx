@@ -83,14 +83,14 @@ export default function RoomPopup({ room, slug, isOpen, onClose }: RoomPopupProp
         </button>
 
         {/* Header */}
-        <div className="bg-gradient-to-br from-heaven-teal-dark to-heaven-teal text-white p-8">
+        <div className="bg-gradient-to-br from-heaven-teal-dark to-heaven-teal text-white p-6 sm:p-8">
           <ScrollAnimation animationType="fade-in-up">
-            <h2 className="text-4xl font-bold mb-3">{room.name}</h2>
-            <p className="text-heaven-blue-light text-lg mb-4">{room.description}</p>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-3">{room.name}</h2>
+            <p className="text-heaven-blue-light text-base sm:text-lg mb-4">{room.description}</p>
             {slug && (
               <button
                 onClick={handleExploreRoom}
-                className="px-6 py-3 bg-white text-heaven-teal-dark rounded-lg hover:bg-heaven-blue-light transition-colors font-semibold"
+                className="px-5 sm:px-6 py-2 sm:py-3 bg-white text-heaven-teal-dark rounded-lg hover:bg-heaven-blue-light transition-colors font-semibold text-sm sm:text-base"
               >
                 Explore {room.name} →
               </button>
@@ -99,7 +99,7 @@ export default function RoomPopup({ room, slug, isOpen, onClose }: RoomPopupProp
         </div>
 
         {/* Content */}
-        <div className="p-8 overflow-y-auto max-h-[calc(90vh-200px)]">
+        <div className="p-6 sm:p-8 overflow-y-auto max-h-[calc(90vh-180px)] sm:max-h-[calc(90vh-200px)]">
           <ScrollAnimation animationType="fade-in-up" delay={200}>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
               {room.products.map((product, index) => (

@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react'
 import ProductCard from './ProductCard'
 import ScrollAnimation from './ScrollAnimation'
 import { Product } from '@/data/products'
+import StyledDropdown from './StyledDropdown'
 
 // Helper function to filter by category
 const filterByCategory = (products: Product[], category: string | null) => {
@@ -59,7 +60,7 @@ export default function ProductsPage({ products }: { products: Product[] }) {
   }, [searchQuery, selectedCategory, selectedType, products])
 
   return (
-    <div className="pt-20 pb-20 bg-gradient-to-b from-white to-heaven-blue-light/10 min-h-screen">
+    <div className="pt-20 md:pt-28 pb-20 bg-gradient-to-b from-white to-heaven-blue-light/10 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <ScrollAnimation animationType="fade-in-up">
@@ -68,44 +69,19 @@ export default function ProductsPage({ products }: { products: Product[] }) {
               Our Products
             </h1>
             <p className="text-lg text-heaven-teal-light max-w-2xl mx-auto">
-              Browse our complete collection of premium furniture with advanced search and filtering options
+              Browse our complete collection of premium furniture
             </p>
           </div>
         </ScrollAnimation>
 
-        {/* Search Bar */}
-        <ScrollAnimation animationType="fade-in-up" delay={100}>
-          <div className="mb-8">
-            <div className="relative max-w-2xl mx-auto">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <svg
-                  className="h-5 w-5 text-heaven-teal-light"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
-              <input
-                type="text"
-                placeholder="Search products by name, description, category, type, material, or color..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 rounded-lg border-2 border-heaven-teal-light focus:border-heaven-teal-dark focus:outline-none text-heaven-teal-dark placeholder-heaven-teal-light/60"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-heaven-teal-light hover:text-heaven-teal-dark"
-                >
+        <div className="relative z-20">
+          {/* Search Bar */}
+          <ScrollAnimation animationType="fade-in-up" delay={100}>
+            <div className="mb-8">
+              <div className="relative max-w-2xl mx-auto">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <svg
-                    className="h-5 w-5"
+                    className="h-5 w-5 text-heaven-teal-light"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -114,66 +90,86 @@ export default function ProductsPage({ products }: { products: Product[] }) {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                     />
                   </svg>
-                </button>
-              )}
-            </div>
-          </div>
-        </ScrollAnimation>
-
-        {/* Filters */}
-        <ScrollAnimation animationType="fade-in-up" delay={200}>
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {/* Category Filter */}
-            <div className="flex flex-wrap justify-center gap-3">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category === 'All' ? null : category)}
-                  className={`px-6 py-2 rounded-full font-medium transition-all ${
-                    (selectedCategory === category) || (category === 'All' && selectedCategory === null)
-                      ? 'bg-heaven-teal-dark text-white shadow-lg scale-105'
-                      : 'bg-white text-heaven-teal-dark border-2 border-heaven-teal hover:bg-heaven-teal-light hover:text-white hover:scale-105'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-
-            {/* Type Filter Dropdown */}
-            <div className="relative">
-              <select
-                value={selectedType || 'All'}
-                onChange={(e) => setSelectedType(e.target.value === 'All' ? null : e.target.value)}
-                className="appearance-none px-6 py-2 pr-10 rounded-full font-medium bg-white text-heaven-teal-dark border-2 border-heaven-teal hover:bg-heaven-teal-light hover:text-white transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-heaven-teal-dark"
-              >
-                {types.map((type) => (
-                  <option key={type} value={type}>
-                    Type: {type}
-                  </option>
-                ))}
-              </select>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <svg
-                  className="w-5 h-5 text-heaven-teal-dark"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-12 pr-4 py-4 rounded-lg border-2 border-heaven-teal-light focus:border-heaven-teal-dark focus:outline-none text-heaven-teal-dark placeholder-heaven-teal-light/60"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-heaven-teal-light hover:text-heaven-teal-dark"
+                  >
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                )}
               </div>
             </div>
-          </div>
-        </ScrollAnimation>
+          </ScrollAnimation>
+
+          {/* Filters */}
+          <ScrollAnimation animationType="fade-in-up" delay={200}>
+            <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center justify-center gap-4 mb-12 px-4 md:px-0">
+              
+              {/* Category Filter Dropdown (Mobile) */}
+              <div className="relative md:hidden">
+                <StyledDropdown
+                  options={categories}
+                  selectedOption={selectedCategory}
+                  onSelect={setSelectedCategory}
+                  labelPrefix="Category: "
+                />
+              </div>
+
+              {/* Category Filter Buttons (Desktop) */}
+              <div className="hidden md:flex flex-wrap justify-center gap-3">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category === 'All' ? null : category)}
+                    className={`px-6 py-2 rounded-full font-medium transition-all ${
+                      (selectedCategory === category) || (category === 'All' && selectedCategory === null)
+                        ? 'bg-heaven-teal-dark text-white shadow-lg scale-105'
+                        : 'bg-white text-heaven-teal-dark border-2 border-heaven-teal hover:bg-heaven-teal-light hover:text-white hover:scale-105'
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+
+              {/* Type Filter Dropdown */}
+              <div className="relative">
+                <StyledDropdown
+                  options={types}
+                  selectedOption={selectedType}
+                  onSelect={setSelectedType}
+                  labelPrefix="Type: "
+                  className="w-full md:w-auto"
+                />
+              </div>
+            </div>
+          </ScrollAnimation>
+        </div>
+
 
         {/* Results Count */}
         {filteredProducts.length > 0 && (

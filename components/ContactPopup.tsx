@@ -66,20 +66,20 @@ export default function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md relative">
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 sm:p-0">
+      <div className="bg-white p-6 sm:p-8 rounded-lg shadow-2xl w-full max-w-md relative">
+        <button onClick={onClose} className="absolute top-3 right-3 sm:top-4 sm:right-4 text-gray-500 hover:text-gray-800">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
-        <h2 className="text-2xl font-semibold text-heaven-teal-dark mb-6">
+        <h2 className="text-xl sm:text-2xl font-semibold text-heaven-teal-dark mb-6">
           Consult With Us
         </h2>
         {submitStatus === 'success' ? (
-          <p className="text-green-600 text-center">Your message has been sent successfully! This window will close shortly.</p>
+          <p className="text-green-600 text-center text-sm sm:text-base">Your message has been sent successfully! This window will close shortly.</p>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-heaven-teal-dark mb-2">
+              <label htmlFor="name" className="block text-xs sm:text-sm font-medium text-heaven-teal-dark mb-2">
                 Name
               </label>
               <input
@@ -89,11 +89,11 @@ export default function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border-2 border-heaven-teal-light rounded-lg focus:outline-none focus:border-heaven-teal-dark transition-colors"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-heaven-teal-light rounded-lg focus:outline-none focus:border-heaven-teal-dark transition-colors text-sm sm:text-base"
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-heaven-teal-dark mb-2">
+              <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-heaven-teal-dark mb-2">
                 Email
               </label>
               <input
@@ -103,11 +103,11 @@ export default function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border-2 border-heaven-teal-light rounded-lg focus:outline-none focus:border-heaven-teal-dark transition-colors"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-heaven-teal-light rounded-lg focus:outline-none focus:border-heaven-teal-dark transition-colors text-sm sm:text-base"
               />
             </div>
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-heaven-teal-dark mb-2">
+              <label htmlFor="message" className="block text-xs sm:text-sm font-medium text-heaven-teal-dark mb-2">
                 Message
               </label>
               <textarea
@@ -116,20 +116,20 @@ export default function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                 value={formData.message}
                 onChange={handleChange}
                 required
-                rows={5}
-                className="w-full px-4 py-3 border-2 border-heaven-teal-light rounded-lg focus:outline-none focus:border-heaven-teal-dark transition-colors resize-none"
+                rows={4}
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-heaven-teal-light rounded-lg focus:outline-none focus:border-heaven-teal-dark transition-colors resize-none text-sm sm:text-base"
                 placeholder="What can we help you with?"
               />
             </div>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3 bg-heaven-teal-dark text-white rounded-lg hover:bg-heaven-teal transition-colors font-semibold text-lg disabled:bg-gray-400"
+              className="w-full py-3 bg-heaven-teal-dark text-white rounded-lg hover:bg-heaven-teal transition-colors font-semibold text-base sm:text-lg disabled:bg-gray-400"
             >
               {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
             {submitStatus === 'error' && (
-              <p className="text-red-600 mt-4">An error occurred while sending your message. Please try again.</p>
+              <p className="text-red-600 mt-4 text-sm sm:text-base">An error occurred while sending your message. Please try again.</p>
             )}
           </form>
         )}

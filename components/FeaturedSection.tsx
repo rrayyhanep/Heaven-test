@@ -23,14 +23,14 @@ export default function FeaturedSection() {
   ]
 
   return (
-    <section className="py-20 bg-white">
+    <section className="hidden md:block py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollAnimation animationType="fade-in-up">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-heaven-teal-dark mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-heaven-teal-dark mb-4">
               Why Choose Heaven Furniture
             </h2>
-            <p className="text-lg text-heaven-teal-light max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-heaven-teal-light max-w-2xl mx-auto">
               Experience the perfect blend of style, comfort, and quality
             </p>
           </div>
@@ -55,11 +55,11 @@ export default function FeaturedSection() {
                 className="w-full max-w-sm"
               >
                 <div className={`w-full h-full text-center p-8 rounded-lg border border-heaven-blue-light/20 shadow-md flex flex-col items-center justify-center bg-heaven-blue-light/10`}>
-                  <div className="text-6xl mb-6">{feature.icon}</div>
-                  <h3 className="text-2xl font-semibold text-heaven-teal-dark mb-4">
+                  <div className="text-5xl sm:text-6xl mb-6">{feature.icon}</div>
+                  <h3 className="text-xl sm:text-2xl font-semibold text-heaven-teal-dark mb-4">
                     {feature.title}
                   </h3>
-                  <p className="text-heaven-teal-light text-base">
+                  <p className="text-heaven-teal-light text-sm sm:text-base">
                     {feature.description}
                   </p>
                 </div>
