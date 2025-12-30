@@ -74,10 +74,7 @@ export default function ProductsPage({ products }: { products: Product[] }) {
     setTimeout(() => {
       setCurrentPage(pageNumber);
       setIsAnimating(false);
-      const productGrid = document.getElementById('product-grid');
-      if (productGrid) {
-        productGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 300);
   };
 

@@ -1,12 +1,13 @@
-import { Html, Head, Font, Preview, Heading, Row, Section, Text } from '@react-email/components';
+import { Html, Head, Font, Preview, Heading, Row, Section, Text, Hr } from '@react-email/components';
 
 interface ContactEmailProps {
   name: string;
   email: string;
   message: string;
+  productName?: string;
 }
 
-export default function ContactEmail({ name, email, message }: ContactEmailProps) {
+export default function ContactEmail({ name, email, message, productName }: ContactEmailProps) {
   return (
     <Html lang="en" dir="ltr">
       <Head>
@@ -30,6 +31,12 @@ export default function ContactEmail({ name, email, message }: ContactEmailProps
         <Row>
           <Text>You have received a new message from your website contact form.</Text>
         </Row>
+        <Hr />
+        {productName && (
+          <Row>
+            <Text><strong>Product:</strong> {productName}</Text>
+          </Row>
+        )}
         <Row>
           <Text><strong>Name:</strong> {name}</Text>
         </Row>

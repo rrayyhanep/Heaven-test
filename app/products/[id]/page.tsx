@@ -188,7 +188,7 @@ export default function ProductDetailPage({ params }: PageProps) {
           )}
         </div>
       </div>
-      <ContactPopup isOpen={isContactPopupOpen} onClose={closeContactPopup} />
+      <ContactPopup isOpen={isContactPopupOpen} onClose={closeContactPopup} productName={product.name} />
     </>
   )
 }

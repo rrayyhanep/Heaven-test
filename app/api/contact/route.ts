@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json()
     console.log('Request body:', body)
-    const { name, email, message } = body
+    const { name, email, message, productName } = body
 
     if (!name || !email || !message) {
       console.log('Validation failed: Missing fields')
@@ -19,13 +19,17 @@ export async function POST(request: Request) {
       )
     }
 
+    const subject = productName
+      ? `Inquiry about ${productName}`
+      : 'New Message from Heaven Furniture'
+
     console.log(`Sending email from ${name} (${email}): ${message}`)
 
     const { data, error } = await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: 'Heaven Furniture <onboarding@resend.dev>',
       to: 'heavenfurniture000@gmail.com',
-      subject: 'New Message from Heaven Furniture',
-      react: ContactEmail({ name, email, message }),
+      subject,
+      react: ContactEmail({ name, email, message, productName }),
     })
 
     if (error) {

@@ -5,13 +5,15 @@ import { useState, useEffect } from 'react'
 interface ContactPopupProps {
   isOpen: boolean
   onClose: () => void
+  productName?: string
 }
 
-export default function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
+export default function ContactPopup({ isOpen, onClose, productName }: ContactPopupProps) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
+    productName: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null)
@@ -19,11 +21,16 @@ export default function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
   useEffect(() => {
     if (isOpen) {
       // Reset form when opening
-      setFormData({ name: '', email: '', message: '' })
+      setFormData({
+        name: '',
+        email: '',
+        message: '',
+        productName: productName || '',
+      })
       setSubmitStatus(null)
       setIsSubmitting(false)
     }
-  }, [isOpen])
+  }, [isOpen, productName])
 
   if (!isOpen) {
     return null
@@ -45,9 +52,6 @@ export default function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
 
       if (response.ok) {
         setSubmitStatus('success')
-        setTimeout(() => {
-          onClose()
-        }, 2000) // Close after 2 seconds on success
       } else {
         setSubmitStatus('error')
       }
@@ -72,12 +76,13 @@ export default function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         <h2 className="text-xl sm:text-2xl font-semibold text-heaven-teal-dark mb-6">
-          Consult With Us
+          {productName ? `Inquiry about ${productName}` : 'Consult With Us'}
         </h2>
         {submitStatus === 'success' ? (
-          <p className="text-green-600 text-center text-sm sm:text-base">Your message has been sent successfully! This window will close shortly.</p>
+          <p className="text-green-600 text-center text-sm sm:text-base">Your message has been sent successfully! Our team will contact you shortly.</p>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+            <input type="hidden" name="productName" value={formData.productName} />
             <div>
               <label htmlFor="name" className="block text-xs sm:text-sm font-medium text-heaven-teal-dark mb-2">
                 Name

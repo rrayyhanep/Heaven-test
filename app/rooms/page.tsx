@@ -50,6 +50,7 @@ const roomData = {
         category: 'Living Room',
         description: 'Elegant three-piece sofa set with premium upholstery',
         image: `https://placehold.co/800x600/1a4d4d/7dd3f0?text=${encodeURIComponent('Luxury Sofa Set')}`,
+        modelSrc: 'https://modelviewer.dev/shared-assets/models/items/LuxurySofa.glb',
       },
       {
         id: 3,
@@ -57,6 +58,7 @@ const roomData = {
         category: 'Living Room',
         description: 'Plush armchair perfect for reading and relaxation',
         image: `https://placehold.co/800x600/1a4d4d/7dd3f0?text=${encodeURIComponent('Comfortable Armchair')}`,
+        modelSrc: 'https://modelviewer.dev/shared-assets/models/items/Armchair.glb',
       },
       {
         id: 6,
@@ -64,6 +66,7 @@ const roomData = {
         category: 'Living Room',
         description: 'Contemporary coffee table with storage',
         image: `https://placehold.co/800x600/1a4d4d/7dd3f0?text=${encodeURIComponent('Coffee Table')}`,
+        modelSrc: 'https://modelviewer.dev/shared-assets/models/items/CoffeeTable.glb',
       },
     ],
   },
@@ -77,6 +80,7 @@ const roomData = {
         category: 'Dining Room',
         description: 'Contemporary dining table with sleek design',
         image: `https://placehold.co/800x600/1a4d4d/7dd3f0?text=${encodeURIComponent('Modern Dining Table')}`,
+        modelSrc: 'https://modelviewer.dev/shared-assets/models/items/DiningTable.glb',
       },
       {
         id: 7,
@@ -84,6 +88,7 @@ const roomData = {
         category: 'Dining Room',
         description: 'Comfortable and stylish dining chairs',
         image: `https://placehold.co/800x600/1a4d4d/7dd3f0?text=${encodeURIComponent('Dining Chair Set')}`,
+        modelSrc: 'https://modelviewer.dev/shared-assets/models/items/DiningChair.glb',
       },
       {
         id: 8,
@@ -91,6 +96,7 @@ const roomData = {
         category: 'Dining Room',
         description: 'Elegant storage solution for your dining room',
         image: `https://placehold.co/800x600/1a4d4d/7dd3f0?text=${encodeURIComponent('Buffet Cabinet')}`,
+        modelSrc: 'https://modelviewer.dev/shared-assets/models/items/BuffetCabinet.glb',
       },
     ],
   },
@@ -104,6 +110,7 @@ const roomData = {
         category: 'Bedroom',
         description: 'Stylish bed frame with modern aesthetics',
         image: `https://placehold.co/800x600/1a4d4d/7dd3f0?text=${encodeURIComponent('Elegant Bed Frame')}`,
+        modelSrc: 'https://modelviewer.dev/shared-assets/models/items/BedFrame.glb',
       },
       {
         id: 9,
@@ -111,6 +118,7 @@ const roomData = {
         category: 'Bedroom',
         description: 'Modern nightstand with drawer',
         image: `https://placehold.co/800x600/1a4d4d/7dd3f0?text=${encodeURIComponent('Nightstand')}`,
+        modelSrc: 'https://modelviewer.dev/shared-assets/models/items/Nightstand.glb',
       },
       {
         id: 10,
@@ -118,6 +126,7 @@ const roomData = {
         category: 'Bedroom',
         description: 'Spacious wardrobe with multiple compartments',
         image: `https://placehold.co/800x600/1a4d4d/7dd3f0?text=${encodeURIComponent('Wardrobe')}`,
+        modelSrc: 'https://sketchfab.com/models/e48bb01993c7464ea09a02465c87d25d/embed',
       },
     ],
   },
@@ -131,6 +140,7 @@ const roomData = {
         category: 'Office',
         description: 'Functional and stylish workspace solution',
         image: `https://placehold.co/800x600/1a4d4d/7dd3f0?text=${encodeURIComponent('Office Desk')}`,
+        modelSrc: 'https://modelviewer.dev/shared-assets/models/items/OfficeDesk.glb',
       },
       {
         id: 11,
@@ -138,6 +148,7 @@ const roomData = {
         category: 'Office',
         description: 'Comfortable office chair for long work sessions',
         image: `https://placehold.co/800x600/1a4d4d/7dd3f0?text=${encodeURIComponent('Office Chair')}`,
+        modelSrc: 'https://modelviewer.dev/shared-assets/models/items/OfficeChair.glb',
       },
       {
         id: 12,
@@ -145,6 +156,7 @@ const roomData = {
         category: 'Office',
         description: 'Modern bookshelf for your office space',
         image: `https://placehold.co/800x600/1a4d4d/7dd3f0?text=${encodeURIComponent('Bookshelf')}`,
+        modelSrc: 'https://modelviewer.dev/shared-assets/models/items/Bookshelf.glb',
       },
     ],
   },
