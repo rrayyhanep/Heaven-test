@@ -1,19 +1,18 @@
 import Image from 'next/image'
 
 interface LogoProps {
-  size?: number
-  className?: string
+  className?: string;
 }
 
-export default function Logo({ size = 60, className = '' }: LogoProps) {
+export default function Logo({ className = '' }: LogoProps) {
   return (
-    <div className={`relative ${className}`}>
+    <div className={className}>
       <Image
         src="/images/logo.png"
         alt="Heaven Furniture Logo"
-        fill
-        sizes={`${size}px`}
-        className="object-contain"
+        width={96}
+        height={40}
+        className="object-contain w-full h-full object-left"
         priority
         unoptimized
       />

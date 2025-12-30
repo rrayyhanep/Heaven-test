@@ -170,7 +170,7 @@ export default function ProductDetailPage({ params }: PageProps) {
                 <h2 className="text-3xl font-bold text-heaven-teal-dark mb-8">
                   Similar Products
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-fr">
                   {similarProducts.map((simProduct, index) => (
                     <ScrollAnimation
                       key={simProduct.id}

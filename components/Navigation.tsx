@@ -50,11 +50,9 @@ export default function Navigation() {
       <header className={`fixed top-0 left-0 right-0 z-50 bg-white shadow-md transition-transform duration-150 ${visible ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-12 md:h-16">
-            <div className="flex-shrink-0">
-              <Link href="/" className="text-xl font-bold text-heaven-teal-dark">
-                <Logo className="h-8 w-20 md:h-10 md:w-24" />
-              </Link>
-            </div>
+            <Link href="/" className="flex-shrink-0 flex items-center">
+              <Logo className="w-16 h-7 md:w-24 md:h-10" />
+            </Link>
             {/* Desktop Navigation */}
             <nav className="hidden md:block">
               <div className="ml-10 flex items-baseline divide-x divide-gray-300">

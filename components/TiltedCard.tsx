@@ -93,7 +93,7 @@ export default function TiltedCard({
   return (
     <div 
       className={`tilted-card-wrapper ${className}`}
-      style={{ perspective: '1000px' }}
+      style={{ perspective: isMobile ? 'none' : '1000px' }}
     >
       {showMobileWarning && isMobile && (
         <div className="mb-2 text-sm text-yellow-600 text-center">
@@ -108,8 +108,8 @@ export default function TiltedCard({
           width: containerWidth,
           height: containerHeight,
           scale: isHovered ? scaleOnHover : 1,
-          transform,
-          transformStyle: 'preserve-3d',
+          transform: isMobile ? 'none' : transform,
+          transformStyle: isMobile ? 'flat' : 'preserve-3d',
         }}
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovered(true)}
@@ -121,7 +121,7 @@ export default function TiltedCard({
             width: '100%',
             height: '100%',
             position: 'relative',
-            transformStyle: 'preserve-3d',
+            transformStyle: isMobile ? 'flat' : 'preserve-3d',
           }}
         >
           {imageSrc && (
@@ -224,4 +224,3 @@ export default function TiltedCard({
     </div>
   )
 }
-

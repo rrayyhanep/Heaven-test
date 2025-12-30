@@ -55,7 +55,7 @@ export default function ProductShowcase() {
         </ScrollAnimation>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 items-stretch">
           {filteredProducts.map((product, index) => (
             <ScrollAnimation
               key={product.id}

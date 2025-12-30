@@ -10,15 +10,16 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const router = useRouter()
 
-  const handleViewDetails = () => {
+  const handleClick = () => {
     router.push(`/products/${product.id}`)
   }
 
-  const isPlaceholder = product.image.includes('/images/placeholder')
-
   return (
-    <div className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
-      <div className="relative h-64 bg-gradient-to-br from-heaven-teal-light/20 to-heaven-blue-light/20 overflow-hidden flex-shrink-0">
+    <div 
+      onClick={handleClick} 
+      className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full flex flex-col cursor-pointer"
+    >
+      <div className="relative aspect-square bg-gradient-to-br from-heaven-teal-light/20 to-heaven-blue-light/20 overflow-hidden flex-shrink-0">
         <img
           src={product.image}
           alt={product.name}
@@ -30,16 +31,17 @@ export default function ProductCard({ product }: ProductCardProps) {
           </span>
         </div>
       </div>
-      <div className="p-6 flex flex-col flex-grow">
-        <h3 className="text-xl font-semibold text-heaven-teal-dark mb-2">
+      <div className="p-4 sm:p-6 flex flex-col flex-grow">
+        <h3 className="text-sm sm:text-xl font-semibold text-heaven-teal-dark mb-2">
           {product.name}
         </h3>
-        <p className="text-heaven-teal-light text-sm mb-4 flex-grow line-clamp-3">
-          {product.description}
-        </p>
+        <div className="hidden sm:block mb-4 flex-grow">
+          <p className="text-heaven-teal-light text-sm line-clamp-3">
+            {product.description}
+          </p>
+        </div>
         <button
-          onClick={handleViewDetails}
-          className="w-full py-2 bg-heaven-teal-dark text-white rounded-lg hover:bg-heaven-teal transition-colors font-medium mt-auto"
+          className="w-full py-2 bg-heaven-teal-dark text-white rounded-lg hover:bg-heaven-teal transition-colors font-medium mt-auto hidden sm:block"
         >
           View Details
         </button>

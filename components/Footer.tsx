@@ -9,7 +9,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center mb-4">
-              <Logo size={40} className="flex-shrink-0" />
+              <Logo className="w-20 h-8 flex-shrink-0" />
             </div>
             <p className="text-heaven-blue-light text-xs sm:text-sm max-w-md">
               Crafting premium furniture pieces that transform your living spaces into havens of comfort and style.
