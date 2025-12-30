@@ -1,7 +1,19 @@
+'use client'
+
+import { useState } from 'react'
 import Link from 'next/link'
 import Logo from './Logo'
+import { contactInfo } from '@/data/config'
 
 export default function Footer() {
+  const [copied, setCopied] = useState<string | null>(null)
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text)
+    setCopied(text)
+    setTimeout(() => setCopied(null), 2000) // Reset after 2 seconds
+  }
+
   return (
     <footer className="bg-heaven-teal-dark text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
@@ -52,9 +64,21 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold mb-4 uppercase tracking-wide text-sm sm:text-base">Contact</h3>
             <ul className="space-y-2 text-heaven-blue-light text-xs sm:text-sm">
-              <li>Email: heavenfurniture000@gmail.com</li>
-              <li>Phone: 9074 834993</li>
-              <li>Address: Maruthur, Pattambi<br />Palakkad, Kerala<br />India</li>
+              <li className="cursor-pointer" onClick={() => handleCopy(contactInfo.email)}>
+                Email: {contactInfo.email}
+                {copied === contactInfo.email && <span className="ml-2 text-green-500">Copied!</span>}
+              </li>
+              <li>
+                Phone:{' '}
+                {contactInfo.phone.map((number, index) => (
+                  <span key={index} className="cursor-pointer" onClick={() => handleCopy(number)}>
+                    {number}
+                    {copied === number && <span className="ml-2 text-green-500">Copied!</span>}
+                    {index < contactInfo.phone.length - 1 && ', '}
+                  </span>
+                ))}
+              </li>
+              <li dangerouslySetInnerHTML={{ __html: `Address: ${contactInfo.address}` }} />
             </ul>
           </div>
         </div>

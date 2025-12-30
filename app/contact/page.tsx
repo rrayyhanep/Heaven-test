@@ -11,6 +11,7 @@ export default function ContactPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null)
+  const [copied, setCopied] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -46,6 +47,12 @@ export default function ContactPage() {
     })
   }
 
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text)
+    setCopied(text)
+    setTimeout(() => setCopied(null), 2000) // Reset after 2 seconds
+  }
+
   return (
     <div className="pt-16 md:pt-20 pb-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -73,7 +80,10 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-heaven-teal-dark mb-1">Email</h3>
-                  <p className="text-sm sm:text-base text-heaven-teal-light">{contactInfo.email}</p>
+                  <p className="text-sm sm:text-base text-heaven-teal-light cursor-pointer" onClick={() => handleCopy(contactInfo.email)}>
+                    {contactInfo.email}
+                    {copied === contactInfo.email && <span className="ml-2 text-green-500">Copied!</span>}
+                  </p>
                 </div>
               </div>
 
@@ -85,7 +95,12 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-heaven-teal-dark mb-1">Phone</h3>
-                  <p className="text-sm sm:text-base text-heaven-teal-light">{contactInfo.phone}</p>
+                  {contactInfo.phone.map((number, index) => (
+                    <p key={index} className="text-sm sm:text-base text-heaven-teal-light cursor-pointer" onClick={() => handleCopy(number)}>
+                      {number}
+                      {copied === number && <span className="ml-2 text-green-500">Copied!</span>}
+                    </p>
+                  ))}
                 </div>
               </div>
 

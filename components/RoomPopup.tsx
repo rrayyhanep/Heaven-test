@@ -95,7 +95,7 @@ export default function RoomPopup({ room, slug, isOpen, onClose }: RoomPopupProp
         {/* Content */}
         <div className="p-4 md:p-6 sm:p-8 overflow-y-auto max-h-[calc(90vh-180px)] sm:max-h-[calc(90vh-200px)]">
           <ScrollAnimation animationType="fade-in-up" delay={200}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 items-stretch">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6 items-stretch">
               {room.products.map((product, index) => (
                 <ScrollAnimation
                   key={product.id}
