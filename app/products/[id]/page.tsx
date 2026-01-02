@@ -1,14 +1,14 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { useState } from 'react'
 import ScrollAnimation from '@/components/ScrollAnimation'
 import ProductCard from '@/components/ProductCard'
 import { products } from '@/data/products'
 import { getRecommendedProducts } from '@/lib/ai/recommendations'
 import ProductImageAndControls from '@/components/ProductImageAndControls'
 import ContactPopup from '@/components/ContactPopup'
+import ProductCustomizationUI from '@/components/ProductCustomizationUI'
 
 interface PageProps {
   params: { id: string }
@@ -21,17 +21,20 @@ export default function ProductDetailPage({ params }: PageProps) {
   const product = products.find((p) => p.id === productId)
 
   const [isContactPopupOpen, setIsContactPopupOpen] = useState(false)
-  const [selectedMaterial, setSelectedMaterial] = useState<string | undefined>(undefined)
-  const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined)
-  const [selectedSize, setSelectedSize] = useState<string | undefined>(undefined)
+  const [configurationSummary, setConfigurationSummary] = useState('');
+  const [finishMode, setFinishMode] = useState('Full Shade');
 
-  useEffect(() => {
-    if (product) {
-      setSelectedMaterial(product.materialOptions?.[0])
-      setSelectedColor(product.colorOptions?.[0])
-      setSelectedSize(product.sizeOptions?.[0])
-    }
-  }, [product])
+  const handleConfigurationChange = (summary: string) => {
+    setConfigurationSummary(summary);
+  };
+
+  const handleFinishModeChange = (mode: string) => {
+    setFinishMode(mode);
+  };
+  
+  const handleTagClick = (filterType: 'category' | 'type', value: string) => {
+    router.push(`/products?${filterType}=${encodeURIComponent(value)}`);
+  };
 
   const similarProducts = product ? getRecommendedProducts(product, products).slice(0, 4) : []
 
@@ -83,27 +86,28 @@ export default function ProductDetailPage({ params }: PageProps) {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
             <ScrollAnimation animationType="fade-in-up">
-              <ProductImageAndControls 
-                product={product} 
-                selectedMaterial={selectedMaterial} 
-                setSelectedMaterial={setSelectedMaterial} 
-                selectedColor={selectedColor} 
-                setSelectedColor={setSelectedColor} 
-                selectedSize={selectedSize} 
-                setSelectedSize={setSelectedSize} 
-              />
+              <div className="space-y-8">
+                <ProductImageAndControls product={product} finishMode={finishMode} />
+                <ProductCustomizationUI product={product} onConfigurationChange={handleConfigurationChange} onFinishModeChange={handleFinishModeChange} />
+              </div>
             </ScrollAnimation>
 
             <ScrollAnimation animationType="fade-in-up" delay={100}>
               <div className="space-y-6">
                 <div className="flex flex-wrap gap-3">
-                  <span className="px-4 py-2 bg-heaven-teal-dark text-white text-sm font-semibold rounded-full">
+                  <button
+                    onClick={() => handleTagClick('category', product.category)}
+                    className="px-4 py-2 bg-heaven-teal-dark text-white text-sm font-semibold rounded-full hover:bg-heaven-teal transition-colors"
+                  >
                     {product.category}
-                  </span>
+                  </button>
                   {product.type && (
-                    <span className="px-4 py-2 bg-heaven-blue-light text-heaven-teal-dark text-sm font-semibold rounded-full">
+                    <button
+                      onClick={() => handleTagClick('type', product.type!)}
+                      className="px-4 py-2 bg-heaven-blue-light text-heaven-teal-dark text-sm font-semibold rounded-full hover:bg-heaven-blue-light/80 transition-colors"
+                    >
                       {product.type}
-                    </span>
+                    </button>
                   )}
                 </div>
 
@@ -114,29 +118,6 @@ export default function ProductDetailPage({ params }: PageProps) {
                 <p className="text-lg text-heaven-teal-light leading-relaxed">
                   {product.description}
                 </p>
-
-                <div className="space-y-4 pt-4 border-t border-heaven-teal-light/20">
-                  <div className="flex items-start">
-                    <span className="font-semibold text-heaven-teal-dark w-32 flex-shrink-0">Material:</span>
-                    <span className="text-heaven-teal-light flex-1">{selectedMaterial}</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="font-semibold text-heaven-teal-dark w-32 flex-shrink-0">Color:</span>
-                    <span className="text-heaven-teal-light flex-1">{selectedColor}</span>
-                  </div>
-                  {product.sizeOptions && product.sizeOptions.length > 0 && selectedSize && (
-                    <div className="flex items-start">
-                      <span className="font-semibold text-heaven-teal-dark w-32 flex-shrink-0">Size:</span>
-                      <span className="text-heaven-teal-light flex-1">{selectedSize}</span>
-                    </div>
-                  )}
-                  {product.dimensions && (
-                    <div className="flex items-start">
-                      <span className="font-semibold text-heaven-teal-dark w-32 flex-shrink-0">Dimensions:</span>
-                      <span className="text-heaven-teal-light flex-1">{product.dimensions}</span>
-                    </div>
-                  )}
-                </div>
 
                 {product.features && product.features.length > 0 && (
                   <div className="pt-4 border-t border-heaven-teal-light/20">
@@ -188,7 +169,7 @@ export default function ProductDetailPage({ params }: PageProps) {
           )}
         </div>
       </div>
-      <ContactPopup isOpen={isContactPopupOpen} onClose={closeContactPopup} productName={product.name} />
+      <ContactPopup isOpen={isContactPopupOpen} onClose={closeContactPopup} productName={product.name} configurationSummary={configurationSummary} />
     </>
   )
 }

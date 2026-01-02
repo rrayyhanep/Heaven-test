@@ -10,34 +10,33 @@ declare global {
   }
 }
 
-const ModelViewer = ({ src, alt }) => {
+const ModelViewer = ({ src, alt }: { src: string; alt: string }) => {
   const modelViewerRef = useRef(null);
+  const isSketchfab = src.includes('sketchfab');
 
   useEffect(() => {
-    if (!src.includes('sketchfab.com')) {
-      import('@google/model-viewer');
-    }
-  }, [src]);
+    if (!isSketchfab) {
+      const script = document.createElement('script');
+      script.type = 'module';
+      script.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js';
+      document.head.appendChild(script);
 
-  if (src.includes('sketchfab.com')) {
+      return () => {
+        if (script.parentNode) {
+          document.head.removeChild(script);
+        }
+      };
+    }
+  }, [isSketchfab]);
+
+  if (isSketchfab) {
     return (
-      <div className="sketchfab-embed-wrapper" style={{ width: '100%', height: '100%' }}>
-        <iframe
-          title={alt}
-          frameBorder="0"
-          allowFullScreen
-          mozallowfullscreen="true"
-          webkitallowfullscreen="true"
-          allow="autoplay; fullscreen; xr-spatial-tracking"
-          xr-spatial-tracking
-          execution-while-out-of-viewport
-          execution-while-not-rendered
-          web-share
-          src={src}
-          style={{ width: '100%', height: '100%' }}
-        >
-        </iframe>
-      </div>
+      <iframe
+        src={src}
+        title={alt}
+        frameBorder="0"
+        style={{ width: '100%', height: '100%' }}
+      ></iframe>
     );
   }
 
@@ -46,13 +45,9 @@ const ModelViewer = ({ src, alt }) => {
       ref={modelViewerRef}
       src={src}
       alt={alt}
-      auto-rotate
-      camera-controls
+      shadow-intensity="1"
       style={{ width: '100%', height: '100%' }}
     >
-      <div slot="progress-bar">
-        <div className="update-bar"></div>
-      </div>
     </model-viewer>
   );
 };

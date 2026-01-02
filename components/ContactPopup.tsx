@@ -6,14 +6,16 @@ interface ContactPopupProps {
   isOpen: boolean
   onClose: () => void
   productName?: string
+  configurationSummary?: string
 }
 
-export default function ContactPopup({ isOpen, onClose, productName }: ContactPopupProps) {
+export default function ContactPopup({ isOpen, onClose, productName, configurationSummary }: ContactPopupProps) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
     productName: '',
+    configurationSummary: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null)
@@ -26,11 +28,12 @@ export default function ContactPopup({ isOpen, onClose, productName }: ContactPo
         email: '',
         message: '',
         productName: productName || '',
+        configurationSummary: configurationSummary || '',
       })
       setSubmitStatus(null)
       setIsSubmitting(false)
     }
-  }, [isOpen, productName])
+  }, [isOpen, productName, configurationSummary])
 
   if (!isOpen) {
     return null
@@ -75,14 +78,16 @@ export default function ContactPopup({ isOpen, onClose, productName }: ContactPo
         <button onClick={onClose} className="absolute top-3 right-3 sm:top-4 sm:right-4 text-gray-500 hover:text-gray-800">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
-        <h2 className="text-xl sm:text-2xl font-semibold text-heaven-teal-dark mb-6">
+        <h2 className="text-xl sm:text-2xl font-semibold text-heaven-teal-dark mb-2">
           {productName ? `Inquiry about ${productName}` : 'Consult With Us'}
         </h2>
+        {configurationSummary && <p className="text-sm text-gray-600 mb-6">{configurationSummary}</p>}
         {submitStatus === 'success' ? (
           <p className="text-green-600 text-center text-sm sm:text-base">Your message has been sent successfully! Our team will contact you shortly.</p>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             <input type="hidden" name="productName" value={formData.productName} />
+            <input type="hidden" name="configurationSummary" value={formData.configurationSummary} />
             <div>
               <label htmlFor="name" className="block text-xs sm:text-sm font-medium text-heaven-teal-dark mb-2">
                 Name

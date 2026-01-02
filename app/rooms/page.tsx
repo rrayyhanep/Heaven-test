@@ -177,7 +177,7 @@ export default function RoomsPage() {
 
   return (
     <>
-      <div className="pt-20 pb-20">
+      <div className="pt-28 md:pt-36 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollAnimation animationType="fade-in-up">
             <div className="text-center mb-16">

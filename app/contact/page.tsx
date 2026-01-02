@@ -54,7 +54,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="pt-16 md:pt-20 pb-20">
+    <div className="pt-16 md:pt-20 pb-20 mt-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16">
           <h1 className="text-3xl md:text-5xl font-bold text-heaven-teal-dark mb-4 md:mb-6">

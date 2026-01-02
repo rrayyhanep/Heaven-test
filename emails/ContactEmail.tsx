@@ -5,9 +5,10 @@ interface ContactEmailProps {
   email: string;
   message: string;
   productName?: string;
+  configurationSummary?: string;
 }
 
-export default function ContactEmail({ name, email, message, productName }: ContactEmailProps) {
+export default function ContactEmail({ name, email, message, productName, configurationSummary }: ContactEmailProps) {
   return (
     <Html lang="en" dir="ltr">
       <Head>
@@ -35,6 +36,11 @@ export default function ContactEmail({ name, email, message, productName }: Cont
         {productName && (
           <Row>
             <Text><strong>Product:</strong> {productName}</Text>
+          </Row>
+        )}
+        {configurationSummary && (
+          <Row>
+            <Text><strong>Configuration:</strong> {configurationSummary}</Text>
           </Row>
         )}
         <Row>

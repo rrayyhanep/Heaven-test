@@ -1,5 +1,7 @@
 'use client'
 
+import ScrollAnimation from './ScrollAnimation';
+
 export default function MobileFeaturedSection() {
   const features = [
     {
@@ -30,19 +32,23 @@ export default function MobileFeaturedSection() {
             Experience the perfect blend of style, comfort, and quality
           </p>
         </div>
-        <div className="space-y-10">
+        <div className="space-y-8">
           {features.map((feature, index) => (
-            <div key={index} className="flex items-start">
-              <div className="text-3xl sm:text-4xl mr-5">{feature.icon}</div>
-              <div>
-                <h3 className="text-lg sm:text-xl font-semibold text-heaven-teal-dark mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-heaven-teal-light text-sm sm:text-base">
-                  {feature.description}
-                </p>
+            <ScrollAnimation key={index} animationType="fade-in-up" delay={index * 100}>
+              <div className="bg-gray-50/70 p-6 rounded-xl shadow-md border border-gray-200/80">
+                <div className="flex items-center">
+                  <div className="text-4xl mr-5">{feature.icon}</div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-heaven-teal-dark">
+                      {feature.title}
+                    </h3>
+                    <p className="text-heaven-teal-light text-sm">
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
+            </ScrollAnimation>
           ))}
         </div>
       </div>

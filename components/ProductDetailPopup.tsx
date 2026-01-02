@@ -16,6 +16,7 @@ export default function ProductDetailPopup({ product, isOpen, onClose }: Product
   const [isContactPopupOpen, setIsContactPopupOpen] = useState(false)
   const [selectedMaterial, setSelectedMaterial] = useState<string | undefined>(undefined)
   const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined)
+  const [selectedSize, setSelectedSize] = useState<string | undefined>(undefined)
 
   useEffect(() => {
     if (isOpen) {
@@ -23,6 +24,7 @@ export default function ProductDetailPopup({ product, isOpen, onClose }: Product
       if (product) {
         setSelectedMaterial(product.materialOptions?.[0])
         setSelectedColor(product.colorOptions?.[0])
+        setSelectedSize(product.sizeOptions?.[0])
       }
     } else {
       document.body.style.overflow = 'unset'
@@ -142,6 +144,36 @@ export default function ProductDetailPopup({ product, isOpen, onClose }: Product
                       </div>
                     </div>
                   )}
+                  
+                  {/* Size Selector */}
+                  {product.sizeOptions && product.sizeOptions.length > 0 && (
+                    <div>
+                      <label className="block text-xs sm:text-sm font-medium text-heaven-teal-dark mb-2">Size</label>
+                      <div className="flex items-center bg-gray-200 rounded-full p-1">
+                        {product.sizeOptions.map((option) => (
+                          <button
+                            key={option}
+                            onClick={(e) => { e.stopPropagation(); setSelectedSize(option); }}
+                            className={`relative px-3 sm:px-4 py-1 text-xs sm:text-sm font-medium rounded-full transition-colors w-full ${
+                              selectedSize === option
+                                ? 'text-heaven-teal-dark'
+                                : 'text-gray-500 hover:bg-gray-100/50'
+                            }`}
+                          >
+                            {selectedSize === option && (
+                              <motion.div
+                                layoutId="activeSize"
+                                className="absolute inset-0 bg-white rounded-full shadow-md"
+                                style={{ borderRadius: 9999 }}
+                                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                              />
+                            )}
+                            <span className="relative z-10">{option}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -173,6 +205,10 @@ export default function ProductDetailPopup({ product, isOpen, onClose }: Product
                   <div className="flex items-start">
                     <span className="font-semibold text-heaven-teal-dark w-24 flex-shrink-0">Color:</span>
                     <span className="text-heaven-teal-light">{selectedColor}</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="font-semibold text-heaven-teal-dark w-24 flex-shrink-0">Size:</span>
+                    <span className="text-heaven-teal-light">{selectedSize}</span>
                   </div>
                   {product.dimensions && (
                     <div className="flex items-start">

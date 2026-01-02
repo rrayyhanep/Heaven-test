@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
 import ProductCard from './ProductCard'
 import ScrollAnimation from './ScrollAnimation'
 import { Product } from '@/data/products'
@@ -34,12 +35,47 @@ const filterBySearchQuery = (products: Product[], query: string) => {
 }
 
 export default function ProductsPage({ products }: { products: Product[] }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedType, setSelectedType] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [isAnimating, setIsAnimating] = useState(false)
   const productsPerPage = 18
+
+  useEffect(() => {
+    const category = searchParams.get('category');
+    const type = searchParams.get('type');
+    if (category) {
+      setSelectedCategory(category);
+    }
+    if (type) {
+      setSelectedType(type);
+    }
+  }, [searchParams]);
+
+
+  const updateURL = (category: string | null, type: string | null) => {
+    const params = new URLSearchParams();
+    if (category) {
+      params.set('category', category);
+    }
+    if (type) {
+      params.set('type', type);
+    }
+    router.push(`/products?${params.toString()}`);
+  };
+
+  const handleSetSelectedCategory = (category: string | null) => {
+    setSelectedCategory(category)
+    updateURL(category, selectedType)
+  }
+
+  const handleSetSelectedType = (type: string | null) => {
+    setSelectedType(type)
+    updateURL(selectedCategory, type)
+  }
 
   // Get unique categories
   const categories = useMemo(() => {
@@ -83,7 +119,7 @@ export default function ProductsPage({ products }: { products: Product[] }) {
   }, [searchQuery, selectedCategory, selectedType]);
 
   return (
-    <div className="pt-20 md:pt-28 pb-20 bg-gradient-to-b from-white to-heaven-blue-light/10 min-h-screen">
+    <div className="pt-28 md:pt-36 pb-20 bg-gradient-to-b from-white to-heaven-blue-light/10 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <ScrollAnimation animationType="fade-in-up">
@@ -157,7 +193,7 @@ export default function ProductsPage({ products }: { products: Product[] }) {
                 <StyledDropdown
                   options={categories}
                   selectedOption={selectedCategory}
-                  onSelect={setSelectedCategory}
+                  onSelect={handleSetSelectedCategory}
                   labelPrefix="Category: "
                 />
               </div>
@@ -167,7 +203,7 @@ export default function ProductsPage({ products }: { products: Product[] }) {
                 {categories.map((category) => (
                   <button
                     key={category}
-                    onClick={() => setSelectedCategory(category === 'All' ? null : category)}
+                    onClick={() => handleSetSelectedCategory(category === 'All' ? null : category)}
                     className={`px-6 py-2 rounded-full font-medium transition-all ${
                       (selectedCategory === category) || (category === 'All' && selectedCategory === null)
                         ? 'bg-heaven-teal-dark text-white shadow-lg scale-105'
@@ -184,7 +220,7 @@ export default function ProductsPage({ products }: { products: Product[] }) {
                 <StyledDropdown
                   options={types}
                   selectedOption={selectedType}
-                  onSelect={setSelectedType}
+                  onSelect={handleSetSelectedType}
                   labelPrefix="Type: "
                   className="w-full md:w-auto"
                 />
@@ -246,8 +282,8 @@ export default function ProductsPage({ products }: { products: Product[] }) {
                 <button
                   onClick={() => {
                     setSearchQuery('')
-                    setSelectedCategory(null)
-                    setSelectedType(null)
+                    handleSetSelectedCategory(null)
+                    handleSetSelectedType(null)
                   }}
                   className="px-6 py-2 bg-heaven-teal-dark text-white rounded-lg hover:bg-heaven-teal transition-colors font-medium"
                 >

@@ -2,7 +2,7 @@ import SpotlightCard from '@/components/SpotlightCard';
 
 export default function AboutPage() {
   return (
-    <div className="pt-20 pb-20 bg-warm-gray-100">
+    <div className="pt-20 pb-20 bg-warm-gray-100 mt-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <h1 className="text-3xl sm:text-5xl font-bold text-heaven-teal-dark mb-6">
